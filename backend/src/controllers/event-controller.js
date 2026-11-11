@@ -19,6 +19,11 @@ export function createEvent(req, res) {
     return res.status(400).json({ error: { message: "title, category and date are required" } });
   }
 
+  const capacity = req.body.capacity;
+  if (capacity !== undefined && (!Number.isInteger(Number(capacity)) || Number(capacity) < 1 || Number(capacity) > 1000)) {
+    return res.status(400).json({ error: { message: "capacity must be an integer between 1 and 1000" } });
+  }
+
   const event = {
     id: `event-${randomUUID()}`,
     title: title.trim(),
@@ -27,7 +32,7 @@ export function createEvent(req, res) {
     time: typeof req.body.time === "string" ? req.body.time : "",
     location: typeof req.body.location === "string" ? req.body.location : "",
     description: typeof req.body.description === "string" ? req.body.description : "",
-    capacity: Number.isFinite(Number(req.body.capacity)) && req.body.capacity !== "" ? Number(req.body.capacity) : 0
+    capacity: capacity === undefined ? 0 : Number(capacity)
   };
   events.push(event);
   res.status(201).json(event);
