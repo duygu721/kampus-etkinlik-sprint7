@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { events } from "../data/events.js";
 
 export function getEvents(req, res) {
@@ -19,7 +20,7 @@ export function createEvent(req, res) {
   }
 
   const event = {
-    id: `event-${Date.now()}`,
+    id: `event-${randomUUID()}`,
     title: title.trim(),
     category: category.trim(),
     date: date.trim(),
