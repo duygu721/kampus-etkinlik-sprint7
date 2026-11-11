@@ -25,7 +25,9 @@ Sunucu `http://localhost:3000` adresinde başlar. Ortam değişkeni `PORT` ile p
 | GET | `/events` | 200; 6 etkinlik | — |
 | GET | `/events?category=Atölye` | 200; filtrelenmiş dizi | — |
 | GET | `/events/:id` | 200; etkinlik | 404 `{ "error": { "message": "Event not found" } }` |
-| POST | `/events` | 201; oluşturulan kayıt | 400; `title`, `category` veya `date` eksik |
+| POST | `/events` | 201; oluşturulan kayıt | 400; `title`, `category` veya `date` eksik/geçersiz |
+
+POST için `title`, `category` ve `date` zorunludur. `capacity` gönderilirse 1–1000 arasında tam sayı olmalıdır. Yeni kayıtlara çakışmayan UUID tabanlı kimlik verilir. Geçersiz JSON gövdesi 400, fazla büyük gövde 413 ve bilinmeyen adres 404 JSON hata yanıtı döndürür.
 
 Etkinlik kayıtları bellek içindedir; sunucu yeniden başladığında altı başlangıç kaydı yüklenir. POST ile eklenen kayıtlar sunucu açık kaldığı sürece listeye eklenir. Veritabanı Sprint 8 kapsamındadır.
 
