@@ -11,5 +11,10 @@ app.get("/health", (_req, res) => {
 });
 app.use("/events", eventRoutes);
 app.use((_req, res) => res.status(404).json({ error: { message: "Route not found" } }));
+app.use((err, _req, res, _next) => {
+  const status = err.status || 500;
+  const message = status === 400 ? "Invalid JSON body" : status === 413 ? "Request body too large" : "Internal server error";
+  res.status(status).json({ error: { message } });
+});
 
 export default app;
