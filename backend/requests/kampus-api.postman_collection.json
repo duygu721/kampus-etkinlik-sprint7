@@ -1,0 +1,15 @@
+{
+  "info": {
+    "name": "Kampüs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    { "name": "Health", "request": { "method": "GET", "url": "{{baseUrl}}/health" } },
+    { "name": "Events", "request": { "method": "GET", "url": "{{baseUrl}}/events" } },
+    { "name": "Event by id", "request": { "method": "GET", "url": "{{baseUrl}}/events/event-2" } },
+    { "name": "Missing event (404)", "request": { "method": "GET", "url": "{{baseUrl}}/events/yok" } },
+    { "name": "Create event (201)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"title\": \"Git Atölyesi\",\n  \"category\": \"Atölye\",\n  \"date\": \"2026-12-01\",\n  \"time\": \"14:00\",\n  \"location\": \"Lab 1\",\n  \"capacity\": 30\n}" }, "url": "{{baseUrl}}/events" } },
+    { "name": "Create invalid event (400)", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"title\": \"Eksik kayıt\"\n}" }, "url": "{{baseUrl}}/events" } }
+  ],
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:3000" }]
+}
